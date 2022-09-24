@@ -1,0 +1,31 @@
+{
+    "name": "mnemesong/composer-reader",
+    "description": "Reader, interpretator and helper for composer files",
+    "type": "library",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "*",
+        "phpunit/phpunit": "*"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mnemesong\\ComposerReader\\": "src/",
+            "Mnemesong\\ComposerReaderTestUnit\\": "test-unit/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pantagruel74",
+            "email": "tostar74@mail.ru"
+        }
+    ],
+    "scripts": {
+        "test:unit": "phpunit test-unit",
+        "lint:src": "phpstan analyse src --level 9",
+        "lint:unit": "phpstan analyse test-unit --level 9"
+    },
+    "minimum-stability": "stable"
+}
