@@ -3,7 +3,8 @@
     "description": "Reader, interpretator and helper for composer files",
     "type": "library",
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "webmozart/assert": "*"
     },
     "require-dev": {
         "phpstan/phpstan": "*",
