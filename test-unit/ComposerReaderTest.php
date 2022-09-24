@@ -22,4 +22,10 @@ class ComposerReaderTest extends TestCase
         $truePath = implode($ds, $truePath);
         $this->assertEquals($truePath, $reader->searchComposerJsonPath());
     }
+
+    public function testGetConfig(): void
+    {
+        $config = ComposerReader::findAndParse();
+        $this->assertEquals("mnemesong/composer-reader", $config->get('name'));
+    }
 }

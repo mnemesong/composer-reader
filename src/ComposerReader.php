@@ -6,6 +6,14 @@ use Webmozart\Assert\Assert;
 
 class ComposerReader
 {
+    public static function findAndParse(string $startDir = ''): ComposerConfig
+    {
+        $path = (new self())->searchComposerJsonPath($startDir);
+        $fileContent =  file_get_contents($path);
+        $config = json_decode($fileContent, true);
+        return new ComposerConfig($config);
+    }
+
     protected function searchComposerJsonPath(string $startDir = ''): string
     {
         if($startDir === '') {
