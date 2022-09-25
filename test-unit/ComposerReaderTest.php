@@ -28,4 +28,15 @@ class ComposerReaderTest extends TestCase
         $config = ComposerReader::findAndParse();
         $this->assertEquals("mnemesong/composer-reader", $config->get('name'));
     }
+
+    public function testGetDir(): void
+    {
+        $config = ComposerReader::findAndParse();
+        $ds = DIRECTORY_SEPARATOR;
+        $this->expectOutputString('');
+        $this->assertEquals(
+            __DIR__ . $ds . 'dirSearchTest',
+            $config->getPathByNamespace('Mnemesong\ComposerReaderTestUnit\dirSearchTest')
+        );
+    }
 }
