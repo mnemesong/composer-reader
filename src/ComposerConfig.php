@@ -49,7 +49,7 @@ class ComposerConfig
         $variants = [];
         foreach ($namespacesPsr4 as $ns => $p)
         {
-            if(mb_strpos($nameSpace, $ns) === 0) {
+            if($this->nameSpaceFound($nameSpace, $ns)) {
                 $strTail = mb_substr($nameSpace, strlen($ns));
                 $strData = explode($ds, $strTail);
                 if(strlen($strData[0]) === 0) {
@@ -88,5 +88,10 @@ class ComposerConfig
             }
         }
         throw new \Error('Had not found namespace');
+    }
+
+    protected function nameSpaceFound(string $searchableNamespace, string $namespaceFromConfig): bool
+    {
+        return mb_strpos($searchableNamespace, $namespaceFromConfig) === 0;
     }
 }
