@@ -34,6 +34,10 @@ class ComposerConfig
         return $this->conf;
     }
 
+    /**
+     * @param string $nameSpace
+     * @return string
+     */
     public function getPathByNamespace(string $nameSpace): string
     {
         $namespacesPsr4 = [];
@@ -61,5 +65,28 @@ class ComposerConfig
         }
 
         throw new \Error('Not found namespace for this path');
+    }
+
+    public function getNamespaceByPath(string $filePath): string
+    {
+        $namespacesPsr4 = [];
+        if(isset($this->conf["autoload"])) {
+            $namespacesPsr4 = $this->conf["autoload"]["psr-4"] ?? [];
+        }
+
+        $ds = DIRECTORY_SEPARATOR;
+        $variants = [];
+        $configFilePath = mb_substr($this->confFilePath, 0, strlen($this->confFilePath) - strlen($ds . 'composer.json'));
+        foreach ($namespacesPsr4 as $ns => $p)
+        {
+            $subP = mb_substr($p, 0, strlen($p) - 1);
+            if(mb_strpos($filePath, $configFilePath . $ds . $subP) === 0) {
+                $tail = explode($ds, mb_substr($filePath, strlen($configFilePath . $ds . $subP)));
+                $tail = array_filter($tail, fn(string $s) => (strlen($s) > 0));
+                $ns = mb_substr($ns, 0, strlen($ns) - 1);
+                return implode("\\", (count($tail) > 0) ? array_merge([$ns], $tail) : [$ns]);
+            }
+        }
+        throw new \Error('Had not found namespace');
     }
 }

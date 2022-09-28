@@ -33,10 +33,20 @@ class ComposerReaderTest extends TestCase
     {
         $config = ComposerReader::findAndParse();
         $ds = DIRECTORY_SEPARATOR;
-        $this->expectOutputString('');
         $this->assertEquals(
             __DIR__ . $ds . 'dirSearchTest',
             $config->getPathByNamespace('Mnemesong\ComposerReaderTestUnit\dirSearchTest')
+        );
+    }
+
+    public function testGetNamespace(): void
+    {
+        $config = ComposerReader::findAndParse();
+        $ds = DIRECTORY_SEPARATOR;
+        $this->expectOutputString('');
+        $this->assertEquals(
+            'Mnemesong\ComposerReaderTestUnit',
+            $config->getNamespaceByPath(__DIR__)
         );
     }
 }
